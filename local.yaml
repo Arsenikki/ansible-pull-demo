@@ -4,8 +4,8 @@
   connection: local
   tasks:
     - name: Test pull mode
-      shell: touch /tmp/ansible-pull_mode
+      ansible.builtin.shell: touch /tmp/ansible-pull_mode
 
-- name: log hostname
-  debug:
-    msg: "Hostname is {{ ansible_hostname }}"
+    - name: log hostname
+      ansible.builtin.debug:
+        msg: "Hostname is {{ ansible_hostname }}"
