@@ -1,6 +1,7 @@
 - name: Pre tasks
   hosts: localhost
   connection: local
+  user: ubuntu
   roles:
     - role: geerlingguy.docker
       become: true

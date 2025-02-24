@@ -1,11 +1,8 @@
 - name: Pre tasks
   hosts: localhost
   connection: local
+  user: ubuntu
   pre_tasks:
-    - name: Greeting in a pre_task
-      ansible.builtin.debug:
-        msg: "Hey this is a demo of Ansible pull running on host: {{ ansible_hostname }}"
     - name: Install Ansible roles
       ansible.builtin.command:
         cmd: ansible-galaxy install --force -r requirements.yaml
-      become: yes
