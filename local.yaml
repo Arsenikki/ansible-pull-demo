@@ -1,11 +1,24 @@
-- name: Ansible Example Pull Mode
+- name: Demo of Ansible pull with 3rd party role
   hosts: localhost
-  user: root
   connection: local
-  tasks:
-    - name: Test pull mode
-      ansible.builtin.shell: touch /tmp/ansible-pull_mode
-
-    - name: log hostname
+  pre_tasks:
+    - name: Greeting in a pre_task
       ansible.builtin.debug:
-        msg: "Hostname is {{ ansible_hostname }}"
+        msg: "Hey this is a demo of Ansible pull running on host: {{ ansible_hostname }}"
+    - name: Install Ansible roles
+      ansible.builtin.command:
+        cmd: ansible-galaxy install --force -r requirements.yaml
+      become: yes
+  roles:
+    - role: geerlingguy.docker
+      become: true
+      vars:
+        docker_edition: ce
+        docker_packages:
+          - docker-ce={{ docker_version }}
+          - docker-ce-cli={{ docker_version }}
+          - docker-ce-rootless-extras={{ docker_version }}
+          - containerd.io
+        docker_users:
+          - ubuntu
+  
